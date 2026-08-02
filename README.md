@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S03 最小 FastAPI 应用已就绪
-- 下一步：配置管理（S04）、健康检查（S05）
+- 阶段：S04 应用配置管理已就绪
+- 下一步：健康检查 `/healthz`（S05）
 
 ## 环境要求
 
@@ -23,12 +23,15 @@
 ## 安装
 
 ```bash
-python3 -m venv .venv
+python3.12 -m venv .venv
 source .venv/bin/activate   # Windows: .venv\Scripts\activate
 
 # 日常开发（推荐）
 pip install -U pip
 pip install -r requirements-dev.txt
+
+# 配置（可选；不复制则使用代码内默认值）
+cp .env.example .env
 
 # 仅运行时基线
 # pip install -r requirements.txt
@@ -56,9 +59,15 @@ source .venv/bin/activate
 uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 # 另开终端：
 curl http://127.0.0.1:8000/
-# 预期：{"name":"RAGkefu","status":"ok","message":"minimal FastAPI app is running"}
+# 预期含 name / status / env / version 字段
 # API 文档：http://127.0.0.1:8000/docs
 ```
+
+## 配置说明
+
+- 模板：`.env.example`
+- 加载入口：`app/core/config.py`（`get_settings()`）
+- 常用变量：`APP_ENV`、`DEBUG`、`API_PREFIX`；`DATABASE_URL` / `REDIS_URL` / `CHROMA_URL` 为后续步骤预留
 
 ## 协作约定
 
