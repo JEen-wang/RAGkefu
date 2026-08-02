@@ -1,0 +1,13 @@
+# RAG / 检索 / 缓存相关依赖（S22+ 启用，避免脚手架阶段安装过重）
+-r requirements.txt
+
+# Orchestration & tracing
+langchain>=0.3.0,<0.4.0
+langchain-community>=0.3.0,<0.4.0
+langsmith>=0.1.0,<0.4.0
+
+# Vector store (MVP 默认 Chroma；Milvus adapter 为加分项)
+chromadb>=0.5.0,<0.7.0
+
+# Cache
+redis>=5.0.0,<6.0.0
