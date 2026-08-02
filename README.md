@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S14 数据库种子数据已就绪
-- 下一步：Order repository（S15）
+- 阶段：S15 Order repository 已就绪
+- 下一步：Logistics / Refund repository（S16）
 
 ## 环境要求
 
@@ -117,6 +117,23 @@ python scripts/seed_db.py
 #   物流 TQ20260802001
 #   退款 RF20260802001
 #   商品 SKU-IPHONE-15
+```
+
+按订单号查询（S15 repository 手工验收）：
+
+```bash
+python - <<'PY'
+import asyncio
+from app.db.session import AsyncSessionLocal
+from app.db.repositories import OrderRepository
+
+async def main():
+    async with AsyncSessionLocal() as s:
+        order = await OrderRepository.get_by_order_no(s, "ORD20260802001")
+        print(order.status if order else None, len(order.items) if order else 0)
+
+asyncio.run(main())
+# 预期：shipped 2
 ```
 
 ## 测试
