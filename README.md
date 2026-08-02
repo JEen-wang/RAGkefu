@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S02 Python 依赖基线已就绪
-- 业务代码：尚未实现（按小步骤推进）
+- 阶段：S03 最小 FastAPI 应用已就绪
+- 下一步：配置管理（S04）、健康检查（S05）
 
 ## 环境要求
 
@@ -52,7 +52,12 @@ scripts/             # 种子、入库、评测脚本
 ## 快速启动
 
 ```bash
-# S03 将补充：uvicorn 启动最小 FastAPI 应用
+source .venv/bin/activate
+uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
+# 另开终端：
+curl http://127.0.0.1:8000/
+# 预期：{"name":"RAGkefu","status":"ok","message":"minimal FastAPI app is running"}
+# API 文档：http://127.0.0.1:8000/docs
 ```
 
 ## 协作约定
