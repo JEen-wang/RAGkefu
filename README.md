@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S04 应用配置管理已就绪
-- 下一步：健康检查 `/healthz`（S05）
+- 阶段：S05 健康检查 `/healthz` 已就绪
+- 下一步：API 路由组装（S06）
 
 ## 环境要求
 
@@ -60,6 +60,8 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 # 另开终端：
 curl http://127.0.0.1:8000/
 # 预期含 name / status / env / version 字段
+curl http://127.0.0.1:8000/healthz
+# 预期：{"status":"ok","env":"local","version":"0.1.0"}
 # API 文档：http://127.0.0.1:8000/docs
 ```
 
