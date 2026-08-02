@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S12 异步 DB session 已就绪
-- 下一步：电商核心表模型（S13）
+- 阶段：S13 电商核心表模型已就绪
+- 下一步：数据库种子数据（S14）
 
 ## 环境要求
 
@@ -98,6 +98,14 @@ from app.db.session import check_db_connection
 print(asyncio.run(check_db_connection()))
 PY
 # 预期：True
+```
+
+建表（S13，需 Postgres 已启动）：
+
+```bash
+source .venv/bin/activate
+python scripts/create_tables.py
+# 预期输出包含 products, orders, order_items, logistics, logistics_events, refunds
 ```
 
 ## 测试
