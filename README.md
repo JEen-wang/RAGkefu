@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S09 Chat API 契约 mock 已就绪
-- 下一步：单元/契约测试基线（S10）
+- 阶段：S10 API 契约测试基线已就绪
+- 下一步：Compose Postgres（S11） / DB session（S12）
 
 ## 环境要求
 
@@ -67,6 +67,13 @@ curl -s http://127.0.0.1:8000/v1/chat/query \
   -d '{"query":"我的订单到哪了？","user_id":"u_1","session_id":"s_1","channel":"web"}'
 # 预期：route=mock，含 answer / citations / trace_id
 # API 文档：http://127.0.0.1:8000/docs
+```
+
+## 测试
+
+```bash
+source .venv/bin/activate
+pytest -q
 ```
 
 ## 路由约定
