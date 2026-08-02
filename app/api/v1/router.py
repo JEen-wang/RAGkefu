@@ -2,7 +2,10 @@
 
 from fastapi import APIRouter, Query
 
+from app.api.v1 import chat
+
 router = APIRouter()
+router.include_router(chat.router)
 
 
 @router.get("/ping", tags=["system"])

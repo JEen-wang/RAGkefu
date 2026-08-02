@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S06–S08 已完成（路由组装 / 统一错误 / request_id 中间件）
-- 下一步：Chat API 契约 mock（S09）
+- 阶段：S09 Chat API 契约 mock 已就绪
+- 下一步：单元/契约测试基线（S10）
 
 ## 环境要求
 
@@ -62,6 +62,10 @@ curl http://127.0.0.1:8000/
 curl http://127.0.0.1:8000/healthz
 curl http://127.0.0.1:8000/v1/ping
 curl "http://127.0.0.1:8000/v1/ping?q=-1"   # 统一校验错误 JSON
+curl -s http://127.0.0.1:8000/v1/chat/query \
+  -H 'Content-Type: application/json' \
+  -d '{"query":"我的订单到哪了？","user_id":"u_1","session_id":"s_1","channel":"web"}'
+# 预期：route=mock，含 answer / citations / trace_id
 # API 文档：http://127.0.0.1:8000/docs
 ```
 
