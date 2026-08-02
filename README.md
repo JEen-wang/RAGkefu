@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S15 Order repository 已就绪
-- 下一步：Logistics / Refund repository（S16）
+- 阶段：S16 Logistics / Refund repository 已就绪
+- 下一步：就绪探针 `/readyz`（S17）
 
 ## 环境要求
 
@@ -134,6 +134,26 @@ async def main():
 
 asyncio.run(main())
 # 预期：shipped 2
+```
+
+物流 / 退款查询（S16）：
+
+```bash
+python - <<'PY'
+import asyncio
+from app.db.session import AsyncSessionLocal
+from app.db.repositories import LogisticsRepository, RefundRepository
+
+async def main():
+    async with AsyncSessionLocal() as s:
+        lg = await LogisticsRepository.get_by_tracking_no(s, "TQ20260802001")
+        rf = await RefundRepository.get_by_refund_no(s, "RF20260802001")
+        print(lg.status if lg else None, len(lg.events) if lg else 0)
+        print(rf.status if rf else None, rf.order.order_no if rf and rf.order else None)
+
+asyncio.run(main())
+# 预期：in_transit 2
+#       processing ORD20260802002
 ```
 
 ## 测试
