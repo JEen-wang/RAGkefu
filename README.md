@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S05 健康检查 `/healthz` 已就绪
-- 下一步：API 路由组装（S06）
+- 阶段：S06–S08 已完成（路由组装 / 统一错误 / request_id 中间件）
+- 下一步：Chat API 契约 mock（S09）
 
 ## 环境要求
 
@@ -59,11 +59,17 @@ source .venv/bin/activate
 uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 # 另开终端：
 curl http://127.0.0.1:8000/
-# 预期含 name / status / env / version 字段
 curl http://127.0.0.1:8000/healthz
-# 预期：{"status":"ok","env":"local","version":"0.1.0"}
+curl http://127.0.0.1:8000/v1/ping
+curl "http://127.0.0.1:8000/v1/ping?q=-1"   # 统一校验错误 JSON
 # API 文档：http://127.0.0.1:8000/docs
 ```
+
+## 路由约定
+
+- `/healthz`：根路径存活探针（不挂 `/v1`）
+- `/v1/*`：版本化业务 API（由 `settings.api_prefix` 控制）
+- 响应头 `X-Request-ID`：请求追踪；错误体含 `code/message/detail/request_id`
 
 ## 配置说明
 

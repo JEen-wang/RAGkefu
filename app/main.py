@@ -2,10 +2,14 @@
 
 from fastapi import FastAPI
 
-from app.api.v1 import health
+from app.api.router import api_router
 from app.core.config import get_settings
+from app.core.error_handlers import register_exception_handlers
+from app.core.logging import setup_logging
+from app.core.middleware import RequestIdMiddleware
 
 settings = get_settings()
+setup_logging(debug=settings.debug)
 
 app = FastAPI(
     title=settings.app_name,
@@ -14,7 +18,9 @@ app = FastAPI(
     debug=settings.debug,
 )
 
-app.include_router(health.router)
+app.add_middleware(RequestIdMiddleware)
+register_exception_handlers(app)
+app.include_router(api_router)
 
 
 @app.get("/")
