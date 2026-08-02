@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S11 Postgres Compose 服务已就绪
-- 下一步：异步 DB session（S12）
+- 阶段：S12 异步 DB session 已就绪
+- 下一步：电商核心表模型（S13）
 
 ## 环境要求
 
@@ -84,6 +84,21 @@ docker compose ps
 连接串与 `.env.example` 中 `DATABASE_URL` 一致：
 `postgresql+asyncpg://ragkefu:ragkefu@localhost:5434/ragkefu`
 （宿主机端口 **5434** → 容器 5432，避免与本机已有 Postgres 抢端口）
+
+异步 session 入口：`app/db/session.py`（`get_db` / `check_db_connection`），
+FastAPI 依赖别名：`app/api/deps.py` 中的 `DbSession`。
+
+连通性快速检查（需 Postgres 已启动）：
+
+```bash
+source .venv/bin/activate
+python - <<'PY'
+import asyncio
+from app.db.session import check_db_connection
+print(asyncio.run(check_db_connection()))
+PY
+# 预期：True
+```
 
 ## 测试
 
