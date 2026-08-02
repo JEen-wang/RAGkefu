@@ -1,0 +1,23 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: ragkefu-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ragkefu
+      POSTGRES_PASSWORD: ragkefu
+      POSTGRES_DB: ragkefu
+    ports:
+      # 宿主机用 5434，避免与本机已占用的 5432/5433 冲突；容器内仍为 5432
+      - "5434:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ragkefu -d ragkefu"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+volumes:
+  postgres_data:

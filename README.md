@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S10 API 契约测试基线已就绪
-- 下一步：Compose Postgres（S11） / DB session（S12）
+- 阶段：S11 Postgres Compose 服务已就绪
+- 下一步：异步 DB session（S12）
 
 ## 环境要求
 
@@ -68,6 +68,22 @@ curl -s http://127.0.0.1:8000/v1/chat/query \
 # 预期：route=mock，含 answer / citations / trace_id
 # API 文档：http://127.0.0.1:8000/docs
 ```
+
+## 依赖服务（Docker Compose）
+
+```bash
+# 仅启动 Postgres（S11）
+docker compose up -d postgres
+docker compose ps
+# 预期：ragkefu-postgres 为 healthy
+
+# 停止
+# docker compose down
+```
+
+连接串与 `.env.example` 中 `DATABASE_URL` 一致：
+`postgresql+asyncpg://ragkefu:ragkefu@localhost:5434/ragkefu`
+（宿主机端口 **5434** → 容器 5432，避免与本机已有 Postgres 抢端口）
 
 ## 测试
 

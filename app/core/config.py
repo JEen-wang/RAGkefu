@@ -25,7 +25,7 @@ class Settings(BaseSettings):
     api_prefix: str = "/v1"
 
     # Reserved for later steps (safe defaults for local bootstrap)
-    database_url: str = "postgresql+asyncpg://ragkefu:ragkefu@localhost:5432/ragkefu"
+    database_url: str = "postgresql+asyncpg://ragkefu:ragkefu@localhost:5434/ragkefu"
     redis_url: str = "redis://localhost:6379/0"
     chroma_url: str = "http://localhost:8001"
 
