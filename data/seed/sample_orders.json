@@ -1,0 +1,63 @@
+{
+  "products": [
+    {
+      "sku": "SKU-IPHONE-15",
+      "name": "示例手机 15",
+      "price_cents": 599900,
+      "stock": 25,
+      "attrs_json": {"color": "black", "storage": "256G"},
+      "status": "active"
+    },
+    {
+      "sku": "SKU-CASE-01",
+      "name": "手机保护壳",
+      "price_cents": 9900,
+      "stock": 200,
+      "attrs_json": {"material": "TPU"},
+      "status": "active"
+    }
+  ],
+  "orders": [
+    {
+      "order_no": "ORD20260802001",
+      "user_id": "u_1001",
+      "status": "shipped",
+      "total_cents": 609800,
+      "items": [
+        {"sku": "SKU-IPHONE-15", "qty": 1, "price_cents": 599900},
+        {"sku": "SKU-CASE-01", "qty": 1, "price_cents": 9900}
+      ],
+      "logistics": {
+        "tracking_no": "TQ20260802001",
+        "carrier": "顺丰速运",
+        "status": "in_transit",
+        "latest_event": "运输中：已到达【上海转运中心】",
+        "events": [
+          {
+            "event_time": "2026-08-01T10:00:00+08:00",
+            "description": "已揽收"
+          },
+          {
+            "event_time": "2026-08-02T08:30:00+08:00",
+            "description": "已到达【上海转运中心】"
+          }
+        ]
+      }
+    },
+    {
+      "order_no": "ORD20260802002",
+      "user_id": "u_1002",
+      "status": "refunding",
+      "total_cents": 9900,
+      "items": [
+        {"sku": "SKU-CASE-01", "qty": 1, "price_cents": 9900}
+      ],
+      "refund": {
+        "refund_no": "RF20260802001",
+        "status": "processing",
+        "amount_cents": 9900,
+        "reason": "七天无理由退货"
+      }
+    }
+  ]
+}

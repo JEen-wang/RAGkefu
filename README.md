@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S13 电商核心表模型已就绪
-- 下一步：数据库种子数据（S14）
+- 阶段：S14 数据库种子数据已就绪
+- 下一步：Order repository（S15）
 
 ## 环境要求
 
@@ -106,6 +106,17 @@ PY
 source .venv/bin/activate
 python scripts/create_tables.py
 # 预期输出包含 products, orders, order_items, logistics, logistics_events, refunds
+```
+
+灌入演示数据（S14，可重复执行；已存在的订单会跳过）：
+
+```bash
+python scripts/seed_db.py
+# 演示单号：
+#   订单 ORD20260802001
+#   物流 TQ20260802001
+#   退款 RF20260802001
+#   商品 SKU-IPHONE-15
 ```
 
 ## 测试
