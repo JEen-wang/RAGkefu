@@ -4,8 +4,8 @@
 
 ## 当前状态
 
-- 阶段：S16 Logistics / Refund repository 已就绪
-- 下一步：就绪探针 `/readyz`（S17）
+- 阶段：S17 就绪探针 `/readyz` 已就绪
+- 下一步：实体抽取规则（S18）
 
 ## 环境要求
 
@@ -60,6 +60,8 @@ uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 # 另开终端：
 curl http://127.0.0.1:8000/
 curl http://127.0.0.1:8000/healthz
+curl http://127.0.0.1:8000/readyz
+# 预期：postgres 正常时 200 {"status":"ready",...}；DB 不可用时 503
 curl http://127.0.0.1:8000/v1/ping
 curl "http://127.0.0.1:8000/v1/ping?q=-1"   # 统一校验错误 JSON
 curl -s http://127.0.0.1:8000/v1/chat/query \
@@ -165,7 +167,8 @@ pytest -q
 
 ## 路由约定
 
-- `/healthz`：根路径存活探针（不挂 `/v1`）
+- `/healthz`：根路径存活探针（不挂 `/v1`，不检查依赖）
+- `/readyz`：就绪探针（当前检查 Postgres；失败返回 503）
 - `/v1/*`：版本化业务 API（由 `settings.api_prefix` 控制）
 - 响应头 `X-Request-ID`：请求追踪；错误体含 `code/message/detail/request_id`
 
